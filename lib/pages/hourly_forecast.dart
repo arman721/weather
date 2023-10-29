@@ -29,34 +29,50 @@ class HourlyForecast extends StatelessWidget {
             ),
             Expanded(
               flex: 1,
-              child: Center(
-                  child: Obx(
-                () => Column(
+              child: Obx(
+                () => Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "${Jiffy.parse(weatherController.weatherdata["forecast"]["forecastday"][weatherController.dayindex.value]["date"].replaceAll('-', '/')).E}",
-                      style: TextStyle(
-                          fontSize: 40,
+                    IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          size: 40,
                           color: Colors.white,
-                          fontWeight: FontWeight.w300),
-                    ),
+                        )),
                     SizedBox(
-                      height: 8,
+                      width: Get.width * 0.1,
                     ),
-                    Text(
-                      "${weatherController.weatherdata["forecast"]["forecastday"][weatherController.dayindex.value]["day"]["avgtemp_c"]} °C",
-                      style: TextStyle(fontSize: 30, color: Colors.white),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      "cloudy",
-                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    Column(
+                      children: [
+                        Text(
+                          "${Jiffy.parse(weatherController.weatherdata["forecast"]["forecastday"][weatherController.dayindex.value]["date"].replaceAll('-', '/')).MMMEd}",
+                          style: TextStyle(
+                              fontSize: 40,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w300),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "${weatherController.weatherdata["forecast"]["forecastday"][weatherController.dayindex.value]["day"]["avgtemp_c"]} °C",
+                          style: TextStyle(fontSize: 30, color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "${weatherController.weatherdata["forecast"]["forecastday"][weatherController.dayindex.value]["day"]["condition"]["text"]}",
+                          style: TextStyle(fontSize: 30, color: Colors.white),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              )),
+              ),
             ),
             SizedBox(
               height: 50,
@@ -100,7 +116,10 @@ class HourlyForecast extends StatelessWidget {
                     Expanded(
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 10,
+                        itemCount: weatherController
+                            .weatherdata["forecast"]["forecastday"]
+                                [weatherController.dayindex.value]["hour"]
+                            .length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                             padding: EdgeInsets.all(10),
@@ -121,7 +140,8 @@ class HourlyForecast extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  "12PM",
+                                  "${weatherController.weatherdata["forecast"]["forecastday"][weatherController.dayindex.value]["hour"][index]["time"]}"
+                                      .substring(11),
                                   style: TextStyle(
                                       color: Colors.white60, fontSize: 25),
                                 ),
@@ -131,12 +151,12 @@ class HourlyForecast extends StatelessWidget {
                                   size: 35,
                                 ),
                                 Text(
-                                  "20 °C",
+                                  "${weatherController.weatherdata["forecast"]["forecastday"][weatherController.dayindex.value]["hour"][index]["temp_c"]}",
                                   style: TextStyle(
                                       color: Colors.white60, fontSize: 15),
                                 ),
                                 Text(
-                                  "cloud",
+                                  "${weatherController.weatherdata["forecast"]["forecastday"][weatherController.dayindex.value]["hour"][index]["condition"]["text"]}",
                                   style: TextStyle(
                                       color: Colors.white60, fontSize: 25),
                                 )

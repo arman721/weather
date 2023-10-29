@@ -150,7 +150,9 @@ class HomePage extends StatelessWidget {
                               builder: (WeatherController) {
                                 return ListView.builder(
                                   scrollDirection: Axis.vertical,
-                                  itemCount: 5,
+                                  itemCount: weatherController
+                                      .weatherdata["forecast"]["forecastday"]
+                                      .length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return InkWell(
@@ -166,6 +168,8 @@ class HomePage extends StatelessWidget {
                                         color: Color.fromARGB(255, 6, 50, 87),
                                         child: Container(
                                           child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
                                             children: [
                                               Icon(
                                                 Icons.sunny,
@@ -178,7 +182,7 @@ class HomePage extends StatelessWidget {
                                                       color: Colors.white60,
                                                       fontSize: 30)),
                                               Text(
-                                                  "${Jiffy.parse(weatherController.weatherdata["forecast"]["forecastday"][index]["date"].replaceAll('-', '/')).E}",
+                                                  "${Jiffy.parse(weatherController.weatherdata["forecast"]["forecastday"][index]["date"].replaceAll('-', '/')).MMMEd}",
                                                   style: TextStyle(
                                                       color: Colors.white60,
                                                       fontSize: 30)),
