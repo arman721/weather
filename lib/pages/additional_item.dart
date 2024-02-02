@@ -17,7 +17,7 @@ class AdditionalInfoItem extends StatelessWidget {
       children: [
         Icon(
           icon,
-          size: 32,
+          size: 25,
           color: Colors.white60,
         ),
         const SizedBox(height: 8),

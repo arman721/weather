@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 class WeatherController extends GetxController {
   RxInt dayindex = 0.obs;
   RxMap weatherdata = {}.obs;
+  RxString location = "Cuttack".obs;
   @override
   void onInit() {
     super.onInit();
@@ -18,7 +19,7 @@ class WeatherController extends GetxController {
     try {
       await Future.delayed(Duration(seconds: 2));
       var response = await http.get(Uri.parse(
-          "http://api.weatherapi.com/v1/forecast.json?key=61543a2a551c42df8b094726232810&q=Cuttack&days=5&aqi=no&alerts=no"));
+          "http://api.weatherapi.com/v1/forecast.json?key=61543a2a551c42df8b094726232810&q=$location&days=5&aqi=no&alerts=no"));
       final decodedlist = jsonDecode(response.body);
       // var weatherdataJson =
       //     await rootBundle.loadString("lib/models/weatherdata.json");

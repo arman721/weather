@@ -27,6 +27,20 @@ class HomePage extends StatelessWidget {
                     ])),
                   ),
                   Obx(() => Column(children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          onChanged: (value) {
+                            weatherController.location = value.obs;
+                            weatherController.loaddata();
+                          },
+                          decoration: InputDecoration(
+                            labelStyle: TextStyle(color: Colors.white),
+                            fillColor: Colors.amber,
+                            label: Text("Search the location"),
+                          ),
+                        ),
                         Expanded(
                           flex: 1,
                           child: Text(
@@ -62,7 +76,7 @@ class HomePage extends StatelessWidget {
                                         Icon(
                                           Icons.sunny,
                                           color: Colors.white,
-                                          size: 100,
+                                          size: 80,
                                         ),
                                         Column(
                                           children: [
@@ -73,7 +87,7 @@ class HomePage extends StatelessWidget {
                                               "Sunny",
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 30),
+                                                  fontSize: 20),
                                             ),
                                             SizedBox(
                                               height: 10,
@@ -82,7 +96,7 @@ class HomePage extends StatelessWidget {
                                               "${weatherController.weatherdata["current"]["temp_c"]}",
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 30),
+                                                  fontSize: 20),
                                             ),
                                           ],
                                         ),
@@ -123,7 +137,7 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 4,
+                          flex: 2,
                           child: Container(
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(colors: [
