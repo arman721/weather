@@ -9,33 +9,29 @@ class WeatherController extends GetxController {
   RxMap weatherdata = {}.obs;
   RxString location = "Cuttack".obs;
   RxBool isloading = true.obs;
+
   @override
   Future<void> onInit() async {
     super.onInit();
-
     await loaddata();
   }
 
   Future loaddata() async {
     try {
       isloading(true);
-      await Future.delayed(Duration(seconds: 2));
       var response = await http.get(Uri.parse(
-          "http://api.weatherapi.com/v1/forecast.json?key=61543a2a551c42df8b094726232810&q=$location&days=5&aqi=no&alerts=no"));
+          "http://api.weatherapi.com/v1/forecast.json?key=61543a2a551c42df8b094726232810&q=$location&days=3&aqi=no&alerts=no"));
       final decodedlist = jsonDecode(response.body);
-      // var weatherdataJson =
-      //     await rootBundle.loadString("lib/models/weatherdata.json");
-      // final decoded = jsonDecode(weatherdataJson);
-      print(response.body.contains("error"));
       if (response.body.contains("error")) {
         weatherdata.value = {};
       } else {
         weatherdata.value = decodedlist;
+        weatherdata.refresh();
       }
-
-      // Get.log("$weatherdata]");
     } on Exception catch (e) {
-      Get.log(" the error is $e");
+      Get.showSnackbar(GetSnackBar(
+        title: e.toString(),
+      ));
     } finally {
       isloading(false);
     }
