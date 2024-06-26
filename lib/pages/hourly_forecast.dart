@@ -66,7 +66,7 @@ class HourlyForecast extends StatelessWidget {
                         ),
                         Text(
                           "${weatherController.weatherdata["forecast"]["forecastday"][weatherController.dayindex.value]["day"]["condition"]["text"]}",
-                          style: TextStyle(fontSize: 30, color: Colors.white),
+                          style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
                       ],
                     ),
@@ -122,6 +122,7 @@ class HourlyForecast extends StatelessWidget {
                             .length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
+                            width: 100,
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
